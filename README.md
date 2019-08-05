@@ -8,3 +8,15 @@ Provides a [Ceras](https://github.com/rikimaru0345/Ceras) serializer for [Rebus]
 
 ---
 
+It's just
+
+```csharp
+Configure.With(...)
+    .(...)
+    .Serialization(s => s.UseCeras())
+    .Start();
+```
+
+and then Rebus is using Ceras.
+
+The `rbs2-content-type` header will be populated by the value `application/x-ceras`.
