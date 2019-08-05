@@ -39,6 +39,10 @@ if %ERRORLEVEL% neq 0 (
 )
 
 call scripts\push.cmd "%version%"
+if %ERRORLEVEL% neq 0 (
+  echo NuGet push failed.
+  goto exit_fail
+)
 
 popd
 
