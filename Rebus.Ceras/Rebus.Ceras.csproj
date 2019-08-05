@@ -11,9 +11,9 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/rebus-org/Rebus/master/LICENSE.md</PackageLicenseUrl>
     <PackageProjectUrl>http://mookid.dk/oncode/rebus</PackageProjectUrl>
     <Copyright>Copyright 2012-2016</Copyright>
-    <PackageTags>rebus wire serialization</PackageTags>
+    <PackageTags>rebus ceras serialization</PackageTags>
     <PackageIconUrl>https://github.com/mookid8000/Rebus/raw/master/artwork/little_rebusbus2_copy-200x200.png</PackageIconUrl>
-    <RepositoryUrl>https://github.com/rebus-org/Rebus.Wire</RepositoryUrl>
+    <RepositoryUrl>https://github.com/rebus-org/Rebus.Ceras</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Rebus.Wire.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Rebus.Ceras.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,7 +34,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Release\Rebus.Wire.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Rebus.Ceras.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ceras" Version="4.0.40" />

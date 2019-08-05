@@ -6,12 +6,12 @@ using Rebus.Serialization;
 namespace Rebus.Config
 {
     /// <summary>
-    /// Configuration extensions for the Wire serializer
+    /// Configuration extensions for the Ceras serializer
     /// </summary>
     public static class CerasSerializerConfigurationExtensions
     {
         /// <summary>
-        /// Configures Rebus to use the super-spiffy Wire serializer to serialize messages
+        /// Configures Rebus to use the super-spiffy Ceras serializer to serialize messages
         /// </summary>
         public static void UseCeras(this StandardConfigurer<ISerializer> configurer)
         {

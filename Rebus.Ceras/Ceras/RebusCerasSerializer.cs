@@ -10,19 +10,19 @@ using Rebus.Serialization;
 namespace Rebus.Ceras
 {
     /// <summary>
-    /// Rebus serializer that uses the binary Wire serializer to provide a robust POCO serialization that supports everything that you would expect from a modern serializer
+    /// Rebus serializer that uses the binary Ceras serializer to provide a robust POCO serialization that supports everything that you would expect from a modern serializer
     /// </summary>
     class RebusCerasSerializer : ISerializer
     {
         /// <summary>
-        /// Mime type for Wire
+        /// Mime type for Ceras
         /// </summary>
         public const string CerasContentType = "application/x-ceras";
 
         readonly CerasSerializer _serializer = new CerasSerializer();
 
         /// <summary>
-        /// Serializes the given <see cref="Message"/> into a <see cref="TransportMessage"/> using the Wire format,
+        /// Serializes the given <see cref="Message"/> into a <see cref="TransportMessage"/> using the Ceras format,
         /// adding a <see cref="Headers.ContentType"/> header with the value of <see cref="CerasContentType"/>
         /// </summary>
         public async Task<TransportMessage> Serialize(Message message)
