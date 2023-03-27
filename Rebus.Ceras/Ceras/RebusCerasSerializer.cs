@@ -7,51 +7,50 @@ using Rebus.Serialization;
 
 #pragma warning disable 1998
 
-namespace Rebus.Ceras
+namespace Rebus.Ceras;
+
+/// <summary>
+/// Rebus serializer that uses the binary Ceras serializer to provide a robust POCO serialization that supports everything that you would expect from a modern serializer
+/// </summary>
+class RebusCerasSerializer : ISerializer
 {
     /// <summary>
-    /// Rebus serializer that uses the binary Ceras serializer to provide a robust POCO serialization that supports everything that you would expect from a modern serializer
+    /// Mime type for Ceras
     /// </summary>
-    class RebusCerasSerializer : ISerializer
+    public const string CerasContentType = "application/x-ceras";
+
+    readonly CerasSerializer _serializer = new();
+
+    /// <summary>
+    /// Serializes the given <see cref="Message"/> into a <see cref="TransportMessage"/> using the Ceras format,
+    /// adding a <see cref="Headers.ContentType"/> header with the value of <see cref="CerasContentType"/>
+    /// </summary>
+    public async Task<TransportMessage> Serialize(Message message)
     {
-        /// <summary>
-        /// Mime type for Ceras
-        /// </summary>
-        public const string CerasContentType = "application/x-ceras";
+        var bytes = _serializer.Serialize(message.Body);
+        var headers = message.Headers.Clone();
 
-        readonly CerasSerializer _serializer = new CerasSerializer();
+        headers[Headers.ContentType] = CerasContentType;
 
-        /// <summary>
-        /// Serializes the given <see cref="Message"/> into a <see cref="TransportMessage"/> using the Ceras format,
-        /// adding a <see cref="Headers.ContentType"/> header with the value of <see cref="CerasContentType"/>
-        /// </summary>
-        public async Task<TransportMessage> Serialize(Message message)
+        return new TransportMessage(headers, bytes);
+    }
+
+    /// <summary>
+    /// Deserializes the given <see cref="TransportMessage"/> back into a <see cref="Message"/>. Expects a
+    /// <see cref="Headers.ContentType"/> header with a value of <see cref="CerasContentType"/>, otherwise
+    /// it will not attempt to deserialize the message.
+    /// </summary>
+    public async Task<Message> Deserialize(TransportMessage transportMessage)
+    {
+        var contentType = transportMessage.Headers.GetValue(Headers.ContentType);
+
+        if (contentType != CerasContentType)
         {
-            var bytes = _serializer.Serialize(message.Body);
-            var headers = message.Headers.Clone();
-
-            headers[Headers.ContentType] = CerasContentType;
-
-            return new TransportMessage(headers, bytes);
+            throw new FormatException($"Unknown content type: '{contentType}' - must be '{CerasContentType}' for the JSON serialier to work");
         }
 
-        /// <summary>
-        /// Deserializes the given <see cref="TransportMessage"/> back into a <see cref="Message"/>. Expects a
-        /// <see cref="Headers.ContentType"/> header with a value of <see cref="CerasContentType"/>, otherwise
-        /// it will not attempt to deserialize the message.
-        /// </summary>
-        public async Task<Message> Deserialize(TransportMessage transportMessage)
-        {
-            var contentType = transportMessage.Headers.GetValue(Headers.ContentType);
+        var body = _serializer.Deserialize<object>(transportMessage.Body);
 
-            if (contentType != CerasContentType)
-            {
-                throw new FormatException($"Unknown content type: '{contentType}' - must be '{CerasContentType}' for the JSON serialier to work");
-            }
-
-            var body = _serializer.Deserialize<object>(transportMessage.Body);
-
-            return new Message(transportMessage.Headers.Clone(), body);
-        }
+        return new Message(transportMessage.Headers.Clone(), body);
     }
 }

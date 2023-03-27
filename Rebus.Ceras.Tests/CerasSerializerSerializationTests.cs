@@ -1,10 +1,9 @@
 ﻿using NUnit.Framework;
 using Rebus.Tests.Contracts.Serialization;
 
-namespace Rebus.Ceras.Tests
+namespace Rebus.Ceras.Tests;
+
+[TestFixture]
+public class CerasSerializerSerializationTests : BasicSerializationTests<CerasSerializerFactory>
 {
-    [TestFixture]
-    public class CerasSerializerSerializationTests : BasicSerializationTests<CerasSerializerFactory>
-    {
-    }
 }
