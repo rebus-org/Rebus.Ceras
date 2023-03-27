@@ -11,12 +11,13 @@ Provides a [Ceras](https://github.com/rikimaru0345/Ceras) serializer for [Rebus]
 It's just
 
 ```csharp
-Configure.With(...)
-    .(...)
-    .Serialization(s => s.UseCeras())
-    .Start();
+services.AddRebus(
+    configure => configure
+        .(...)
+        .Serialization(s => s.UseCeras())
+);
 ```
 
-and then Rebus is using Ceras.
+and then Rebus is using Ceras to serialize/deserialize messages.
 
-The `rbs2-content-type` header will be populated by the value `application/x-ceras`.
+The `rbs2-content-type` header will be populated with the value `application/x-ceras`.
